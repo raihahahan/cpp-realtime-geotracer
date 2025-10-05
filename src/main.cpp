@@ -109,6 +109,7 @@ int main(int argc, char** argv) {
 
     bool overall_destination_reached = false;
     int hop_count = 0;
+    std::unordered_map<std::string, std::string> geo_cache;
 
     for (int ttl = 1; ttl <= max_hops; ++ttl) {
         std::string hop_ip;
@@ -127,9 +128,12 @@ int main(int argc, char** argv) {
             // break;
         }
 
-        std::string location;
+        std::string location = "";
         if (hop_ip != "-" && hop_ip != "*" && !hop_ip.empty()) {
-            location = get_geolocation(hop_ip);            
+            if (geo_cache.count(hop_ip) == 0) {
+                geo_cache[hop_ip] = get_geolocation(hop_ip); 
+            }
+            location = geo_cache[hop_ip];         
         }
 
         std::cout << std::setw(4) << ttl;
