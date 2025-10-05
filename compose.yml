@@ -6,7 +6,6 @@ services:
     container_name: cs3103
     network_mode: "bridge"
     volumes:
-      # Mount your code directory for live updates
       - .:/workspace
     working_dir: /workspace
     stdin_open: true
