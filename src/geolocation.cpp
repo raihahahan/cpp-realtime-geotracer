@@ -30,7 +30,7 @@ std::string get_geolocation(const std::string& query) {
         std::cerr << "curl_easy_perform() failed: "
                   << curl_easy_strerror(res) << std::endl;
         curl_easy_cleanup(curl);
-        return "(Singapore, Local Router)";
+        return "(Unkown, Local Router)";
     }
 
     curl_easy_cleanup(curl);
@@ -53,7 +53,7 @@ std::string get_geolocation(const std::string& query) {
     // std::cout << "Location: " << city << ", " << regionName << ", " << country << std::endl;
     // std::cout << "ISP: " << isp << std::endl;
     if (country.empty() && regionName.empty() && city.empty() && isp.empty()) {
-        return "(Singapore, Local Router)";
+        return "(Unknown, Local Router)";
     }
     return "(" + city + ", " + regionName + ", " + country + ", " + isp + ")";
 }
