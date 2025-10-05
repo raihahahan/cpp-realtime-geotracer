@@ -106,29 +106,8 @@ case "${1:-help}" in
     start)
         start
         ;;
-    stop)
-        stop
-        ;;
-    restart)
-        restart
-        ;;
     shell)
         shell
-        ;;
-    run)
-        run "$2"
-        ;;
-    build-all)
-        build_all
-        ;;
-    clean)
-        clean
-        ;;
-    logs)
-        logs
-        ;;
-    status)
-        status
         ;;
     help|--help|-h)
         show_help
