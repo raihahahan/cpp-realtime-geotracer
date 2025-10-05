@@ -51,19 +51,6 @@ start() {
     print_status "You can now run: ./dev.sh shell"
 }
 
-# Function to stop the development environment
-stop() {
-    print_status "Stopping development environment..."
-    docker compose down
-    print_success "Development environment stopped!"
-}
-
-# Function to restart the development environment
-restart() {
-    print_status "Restarting development environment..."
-    stop
-    start
-}
 
 # Function to get a shell in the container
 shell() {
@@ -93,42 +80,6 @@ run() {
     docker exec -it cs3103-dev bash -c "cd /workspace && make $1 && ./$1"
 }
 
-# Function to build all exercises
-build_all() {
-    check_docker
-    if ! docker ps | grep -q cs3103-dev; then
-        print_warning "Container is not running. Starting it first..."
-        start
-    fi
-    
-    print_status "Building all exercises..."
-    docker exec -it cs3103-dev bash -c "cd /workspace && make all"
-    print_success "All exercises built successfully!"
-}
-
-# Function to clean build artifacts
-clean() {
-    check_docker
-    if ! docker ps | grep -q cs3103-dev; then
-        print_warning "Container is not running. Starting it first..."
-        start
-    fi
-    
-    print_status "Cleaning build artifacts..."
-    docker exec -it cs3103-dev bash -c "cd /workspace && make clean"
-    print_success "Build artifacts cleaned!"
-}
-
-# Function to show logs
-logs() {
-    docker compose logs -f
-}
-
-# Function to show status
-status() {
-    print_status "Development environment status:"
-    docker compose ps
-}
 
 # Function to show help
 show_help() {
@@ -139,13 +90,7 @@ show_help() {
     echo "Commands:"
     echo "  build       - Build the development environment"
     echo "  start       - Start the development environment"
-    echo "  stop        - Stop the development environment"
-    echo "  restart     - Restart the development environment"
     echo "  shell       - Open a shell in the container"
-    echo "  clean       - Clean build artifacts"
-    echo "  logs        - Show container logs"
-    echo "  status      - Show container status"
-    echo "  help        - Show this help message"
     echo ""
     echo "Examples:"
     echo "  ./dev.sh build        # Build the environment"
